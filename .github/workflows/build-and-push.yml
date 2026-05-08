@@ -12,7 +12,7 @@ jobs:
         feature:
           - goesproc
           - goesrecv
-        platform: 
+        platforms: 
           - "linux/arm64"
           - "linux/amd64"
     runs-on: ubuntu-latest
@@ -51,7 +51,7 @@ jobs:
             version=latest
           context: .
           target: ${{ matrix.feature }}
-          platforms: ${{ matrix.platform }}
+          platforms: ${{ matrix.platforms }}
           push: true
           tags: ghcr.io/${{ steps.lower-repo.outputs.repository }}/${{ matrix.feature }}:latest
           labels: ${{ steps.meta.outputs.labels }}
