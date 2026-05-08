@@ -12,7 +12,9 @@ jobs:
         feature:
           - goesproc
           - goesrecv
-        platforms: linux/arm64,linux/amd64
+        platforms:
+          - linux/amd64
+          - linux/arm64
     runs-on: ubuntu-latest
     permissions:
       contents: read
