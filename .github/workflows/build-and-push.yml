@@ -47,8 +47,6 @@ jobs:
       - name: Build and push Docker image
         uses: docker/build-push-action@v7
         with:
-          build-args: |
-            version=latest
           platforms: ${{ matrix.platforms }}
           push: true
           tags: ghcr.io/${{ steps.lower-repo.outputs.repository }}/${{ matrix.feature }}:latest

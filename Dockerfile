@@ -1,4 +1,4 @@
-ARG version
+ARG version=latest
 FROM debian:${version} AS build-env
 
 ENV TZ="Etc/UTC"
