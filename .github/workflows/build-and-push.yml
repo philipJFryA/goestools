@@ -10,8 +10,8 @@ jobs:
     strategy:
       matrix:
         feature:
-          - goesproc
           - goesrecv
+          - goesproc
         platforms:
           - linux/amd64
           - linux/arm64
@@ -45,12 +45,9 @@ jobs:
           "::set-output name=repository::$($env:GITHUB_REPOSITORY.ToLowerInvariant())"
 
       - name: Build and push Docker image
-        uses: docker/build-push-action@v6
+        uses: docker/build-push-action@v7
         with:
-          build-args:
-            version=latest
           context: .
-          target: ${{ matrix.feature }}
           platforms: ${{ matrix.platforms }}
           push: true
           tags: ghcr.io/${{ steps.lower-repo.outputs.repository }}/${{ matrix.feature }}:latest
