@@ -74,27 +74,27 @@ jobs:
           cache-to: type=gha,scope=${{ matrix.feature }}-${{ matrix.platform }},mode=max
           provenance: mode=min
 
-  create-manifest:
-    needs: build-and-push
-    runs-on: ubuntu-latest
-    permissions:
-      contents: read
-      packages: write
-    
-    steps:
-      - name: Log into GitHub Container Registry
-        uses: docker/login-action@v3
-        with:
-          registry: ${{ env.REGISTRY }}
-          username: ${{ github.actor }}
-          password: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Create and push manifest
-        run: |
-          for feature in goesrecv goesproc; do
-            docker manifest create ${{ env.REGISTRY }}/${{ env.REGISTRY_OWNER }}/${feature}:latest \
-              --amend ${{ env.REGISTRY }}/${{ env.REGISTRY_OWNER }}/${feature}:latest-linux/amd64 \
-              --amend ${{ env.REGISTRY }}/${{ env.REGISTRY_OWNER }}/${feature}:latest-linux/arm64
-            
-            docker manifest push ${{ env.REGISTRY }}/${{ env.REGISTRY_OWNER }}/${feature}:latest
-          done
+#  create-manifest:
+#    needs: build-and-push
+#    runs-on: ubuntu-latest
+#    permissions:
+#      contents: read
+#      packages: write
+#    
+#    steps:
+#      - name: Log into GitHub Container Registry
+#        uses: docker/login-action@v3
+#        with:
+#          registry: ${{ env.REGISTRY }}
+#          username: ${{ github.actor }}
+#          password: ${{ secrets.GITHUB_TOKEN }}
+#
+#      - name: Create and push manifest
+#        run: |
+#          for feature in goesrecv goesproc; do
+#            docker manifest create ${{ env.REGISTRY }}/${{ env.REGISTRY_OWNER }}/${feature}:latest \
+#              --amend ${{ env.REGISTRY }}/${{ env.REGISTRY_OWNER }}/${feature}:latest-linux/amd64 \
+#              --amend ${{ env.REGISTRY }}/${{ env.REGISTRY_OWNER }}/${feature}:latest-linux/arm64
+#            
+#            docker manifest push ${{ env.REGISTRY }}/${{ env.REGISTRY_OWNER }}/${feature}:latest
+#          done
