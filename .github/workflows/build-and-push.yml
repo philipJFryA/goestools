@@ -1,4 +1,4 @@
-name: Build and Publish Multi-Platform Images
+name: Build and Push Multi-Platform Images
 
 on:
   push:
@@ -12,7 +12,7 @@ env:
   REGISTRY_OWNER: ${{ github.repository_owner }}
 
 jobs:
-  build:
+  build-and-push:
     strategy:
       matrix:
         feature: [goesrecv, goesproc]
@@ -75,7 +75,7 @@ jobs:
           provenance: mode=min
 
   create-manifest:
-    needs: build
+    needs: build-and-push
     runs-on: ubuntu-latest
     permissions:
       contents: read
