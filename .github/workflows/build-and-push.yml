@@ -70,9 +70,9 @@ jobs:
             TARGETPLATFORM=${{ matrix.platform }}
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
-          cache-from: type=gha,scope=${{ matrix.feature }}-${{ matrix.platform }}
-          cache-to: type=gha,scope=${{ matrix.feature }}-${{ matrix.platform }},mode=max
-          provenance: mode=min
+          #cache-from: type=gha,scope=${{ matrix.feature }}-${{ matrix.platform }}
+          #cache-to: type=gha,scope=${{ matrix.feature }}-${{ matrix.platform }},mode=max
+          #provenance: mode=min
 
 #  create-manifest:
 #    needs: build-and-push
