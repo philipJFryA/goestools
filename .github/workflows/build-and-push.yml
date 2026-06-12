@@ -52,7 +52,7 @@ jobs:
         id: meta
         uses: docker/metadata-action@v5
         with:
-          images: ${{ env.REGISTRY }}/${{ env.REGISTRY_OWNER }}/${{ matrix.feature }}
+          images: ${{ env.REGISTRY }}/goestools/${{ env.REGISTRY_OWNER }}/${{ matrix.feature }}
           tags: |
             type=raw,value=latest-${{ matrix.platform }},enable={{is_default_branch}}
             type=raw,value=${{ matrix.platform }}
