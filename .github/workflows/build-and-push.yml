@@ -54,7 +54,7 @@ jobs:
         with:
           images: ${{ env.REGISTRY }}/${{ env.REGISTRY_OWNER }}/goestools/${{ matrix.feature }}
           tags: |
-            type=raw,value=latest-${{ matrix.platform }},enable={{is_default_branch}}
+            type=raw,value=latest,enable={{is_default_branch}}
             type=raw,value=${{ matrix.platform }}
             type=sha,format=short
 
@@ -70,31 +70,6 @@ jobs:
             TARGETPLATFORM=${{ matrix.platform }}
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
-          #cache-from: type=gha,scope=${{ matrix.feature }}-${{ matrix.platform }}
-          #cache-to: type=gha,scope=${{ matrix.feature }}-${{ matrix.platform }},mode=max
-          #provenance: mode=min
-
-#  create-manifest:
-#    needs: build-and-push
-#    runs-on: ubuntu-latest
-#    permissions:
-#      contents: read
-#      packages: write
-#    
-#    steps:
-#      - name: Log into GitHub Container Registry
-#        uses: docker/login-action@v3
-#        with:
-#          registry: ${{ env.REGISTRY }}
-#          username: ${{ github.actor }}
-#          password: ${{ secrets.GITHUB_TOKEN }}
-#
-#      - name: Create and push manifest
-#        run: |
-#          for feature in goesrecv goesproc; do
-#            docker manifest create ${{ env.REGISTRY }}/${{ env.REGISTRY_OWNER }}/${feature}:latest \
-#              --amend ${{ env.REGISTRY }}/${{ env.REGISTRY_OWNER }}/${feature}:latest-linux/amd64 \
-#              --amend ${{ env.REGISTRY }}/${{ env.REGISTRY_OWNER }}/${feature}:latest-linux/arm64
-#            
-#            docker manifest push ${{ env.REGISTRY }}/${{ env.REGISTRY_OWNER }}/${feature}:latest
-#          done
+          cache-from: type=gha,scope=${{ matrix.feature }}-${{ matrix.platform }}
+          cache-to: type=gha,scope=${{ matrix.feature }}-${{ matrix.platform }},mode=max
+          provenance: mode=min
